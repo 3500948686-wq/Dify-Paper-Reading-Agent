@@ -1,0 +1,301 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 论文长文快速消化 + 脑图生成
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.1.2@fb05a53c6a343638d8abf089029cb8f7ac36bb1b2228b63785c2532e0bec4c6e
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1775900213301--1775900253031-target
+      source: '1775900213301'
+      sourceHandle: source
+      target: '1775900253031'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1775900253031--1775900744477-target
+      source: '1775900253031'
+      sourceHandle: source
+      target: '1775900744477'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1775900744477--1775900865957-target
+      source: '1775900744477'
+      sourceHandle: source
+      target: '1775900865957'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1775900865957--1775900923603-target
+      source: '1775900865957'
+      sourceHandle: source
+      target: '1775900923603'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 研究主题
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: topic
+      height: 109
+      id: '1775900213301'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 搜索ArXiv论文
+        type: http-request
+        url: http://export.arxiv.org/api/query?search_query=all:{{#1775900213301.topic#}}&start=0&max_results=1
+        variables: []
+      height: 172
+      id: '1775900253031'
+      position:
+        x: 382
+        y: 282
+      positionAbsolute:
+        x: 382
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1775900253031'
+          - body
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: moonshot-v1-8k
+          provider: langgenius/moonshot/moonshot
+        prompt_template:
+        - id: d0f94d57-9dc0-459a-9064-0d1c8748881e
+          role: system
+          text: '请分析以下来自 ArXiv 的论文 XML 数据，忽略其中的格式标签，提取核心信息。
+
+
+            数据：{{#1775900253031.body#}}
+
+
+            请用中文输出一段 500 字左右的总结，包含：
+
+            1. 论文标题
+
+            2. 核心论点（一句话）
+
+            3. 实验方法（简述）
+
+            4. 三个关键数据或结论'
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1775900744477'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1775900744477'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: moonshot-v1-8k
+          provider: langgenius/moonshot/moonshot
+        prompt_template:
+        - id: 71f5a516-a3c2-429f-9f08-8cf7e804a168
+          role: system
+          text: '请将以下论文总结内容，转换成 XMind 可识别的 Markdown 列表格式（层级分明，使用 - 或 * 作为列表符号）。
+
+
+            总结内容：{{#1775900744477.text#}}
+
+
+            要求：
+
+            - 第一级为论文标题
+
+            - 第二级包含：核心论点、实验方法、关键数据
+
+            - 第三级为具体内容'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1775900865957'
+      position:
+        x: 986
+        y: 282
+      positionAbsolute:
+        x: 986
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1775900865957'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 输出
+        type: end
+      height: 88
+      id: '1775900923603'
+      position:
+        x: 1288
+        y: 282
+      positionAbsolute:
+        x: 1288
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 17.68202268191385
+      y: 43.57170848402586
+      zoom: 0.7486746903217412
+  rag_pipeline_variables: []
