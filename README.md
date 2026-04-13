@@ -46,7 +46,8 @@
 ## 📸 效果预览
 
 ### 工作流画布
-![工作流画布](./screenshots/workflow_canvas.png)
+![工作流画布]((https://github.com/user-attachments/assets/c66d259d-836e-4846-88e5-ca2b3e9253b5)
+)
 
 ### 运行结果示例
 
