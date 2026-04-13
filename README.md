@@ -1,4 +1,4 @@
-# Dify-Paper-Reading-Agent
+<img width="1507" height="864" alt="Screenshot 2026-04-13 at 1 36 53 PM" src="https://github.com/user-attachments/assets/ac267597-05ac-4f67-9ab7-a70329a1a1d5" /># Dify-Paper-Reading-Agent
 中文版： 基于 Dify 搭建的 AI Agent 学术论文速读工作流，一键将 ArXiv 论文转化为结构化脑图。  English Version: An AI-powered workflow built on Dify that transforms ArXiv papers into structured mind maps with one click.
 # 📚 论文速读 + 脑图生成器 | ArXiv Paper Digest & Mindmap Agent
 
@@ -46,12 +46,12 @@
 ## 📸 效果预览
 
 ### 工作流画布
-![工作流画布]((https://github.com/user-attachments/assets/c66d259d-836e-4846-88e5-ca2b3e9253b5)
+![工作流画布](https://github.com/user-attachments/assets/c66d259d-836e-4846-88e5-ca2b3e9253b5)
 )
 
 ### 运行结果示例
 
-*（请替换截图链接为你自己的运行截图）*
+*<img width="1512" height="868" alt="Screenshot 2026-04-13 at 1 37 24 PM" src="https://github.com/user-attachments/assets/61b4dd03-5c42-4f35-a5c3-7f1881bd53b1" />*
 
 ## 💡 项目亮点
 
